@@ -1,0 +1,1469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GlowLuxe - Skincare for Boss Babes</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #e1f5fe;
+            overflow-x: hidden;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: transparent;
+            box-shadow: none;
+            transition: all 0.4s ease;
+            z-index: 1000;
+        }
+
+        nav.scrolled {
+            background: #ffffff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .nav-container {
+            max-width: 1440px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+        }
+
+        .logo {
+            color: #f06292;
+            font-size: 1.8em;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            text-shadow: 0 0 8px rgba(240, 98, 146, 0.5);
+            transition: color 0.3s ease, text-shadow 0.3s ease;
+        }
+
+        nav.scrolled .logo {
+            color: #ad1457;
+            text-shadow: 0 0 8px rgba(173, 20, 87, 0.5);
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+            text-shadow: 0 0 12px rgba(240, 98, 146, 0.7);
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links li {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-links li a {
+            color: #fce4ec;
+            text-decoration: none;
+            font-size: 1.1em;
+            font-weight: 500;
+            padding: 10px 20px;
+            display: block;
+            transition: color 0.3s ease;
+        }
+
+        nav.scrolled .nav-links li a {
+            color: #ad1457;
+        }
+
+        .nav-links li a:hover {
+            color: #f06292;
+        }
+
+        .nav-links li a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: -100%;
+            width: 100%;
+            height: 3px;
+            background: #f06292;
+            transition: left 0.3s ease;
+        }
+
+        .nav-links li a:hover::before {
+            left: 0;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            z-index: 1100;
+        }
+
+        .hamburger span {
+            width: 28px;
+            height: 3px;
+            background: #fce4ec;
+            margin: 3px 0;
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled .hamburger span {
+            background: #ad1457;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 80px;
+        }
+
+        .hero-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1521498542256-5aea2ebb8090?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat fixed;
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            max-width: 600px;
+            padding: 40px;
+            text-align: center;
+            color: #fff;
+            background: linear-gradient(180deg, rgba(173, 20, 87, 0.7), rgba(2, 136, 209, 0.3));
+            border-radius: 15px;
+            z-index: 2;
+        }
+
+        .hero-content h1 {
+            font-size: 3.8em;
+            font-weight: 800;
+            margin-bottom: 20px;
+            color: #fce4ec;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px rgba(240, 98, 146, 0.5);
+        }
+
+        .hero-content p {
+            font-size: 1.4em;
+            margin-bottom: 30px;
+            color: #81d4fa;
+            font-weight: 500;
+        }
+
+        .cta-button {
+            background: #ad1457;
+            color: #fce4ec;
+            padding: 18px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.3em;
+            transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+            margin: 10px;
+        }
+
+        .cta-button.secondary {
+            background: #81d4fa;
+            color: #fff;
+        }
+
+        .cta-button.secondary:hover {
+            background: #4fc3f7;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.4s ease;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            background: #880e4f;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .chatbot-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1100;
+        }
+
+        .chatbot-button {
+            background: #81d4fa;
+            color: #fff;
+            padding: 15px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+            font-size: 1.2em;
+        }
+
+        .chatbot-button:hover {
+            transform: scale(1.1);
+        }
+
+        .chatbot-window {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 350px;
+            height: 450px;
+            background: #fce4ec;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            z-index: 1200;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chatbot-window.active {
+            display: flex;
+        }
+
+        .chatbot-header {
+            background: #ad1457;
+            color: #fce4ec;
+            padding: 15px;
+            border-radius: 10px 10px 0 0;
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: 600;
+        }
+
+        .chatbot-messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            background: #fff;
+        }
+
+        .chatbot-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .chatbot-messages::-webkit-scrollbar-thumb {
+            background: #ad1457;
+            border-radius: 10px;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .message.bot {
+            justify-content: flex-start;
+        }
+
+        .message.user {
+            justify-content: flex-end;
+        }
+
+        .message-content {
+            max-width: 70%;
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 0.95em;
+        }
+
+        .message.bot .message-content {
+            background: #e1f5fe;
+            color: #333;
+        }
+
+        .message.user .message-content {
+            background: #ad1457;
+            color: #fce4ec;
+        }
+
+        .chatbot-input {
+            display: flex;
+            padding: 10px;
+            background: #fce4ec;
+            border-top: 1px solid #e1f5fe;
+        }
+
+        .chatbot-input input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #81d4fa;
+            border-radius: 5px;
+            font-size: 1em;
+            outline: none;
+        }
+
+        .chatbot-input button {
+            background: #ad1457;
+            color: #fce4ec;
+            border: none;
+            padding: 10px 15px;
+            margin-left: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+
+        .chatbot-input button:hover {
+            background: #880e4f;
+        }
+
+        .key-ingredients {
+            padding: 80px 40px;
+            background: #fce4ec;
+            text-align: center;
+        }
+
+        .key-ingredients h2 {
+            font-size: 2.5em;
+            margin-bottom: 40px;
+            color: #ad1457;
+            text-transform: uppercase;
+        }
+
+        .ingredients-box {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .ingredient-card {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .ingredient-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .ingredient-card h3 {
+            font-size: 1.3em;
+            color: #ad1457;
+            margin-bottom: 10px;
+        }
+
+        .ingredient-card p {
+            font-size: 1em;
+            color: #4a4a4a;
+        }
+
+        .parallax-section {
+            position: relative;
+            height: 60vh;
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            text-align: center;
+        }
+
+        #product1 {
+            background: url('https://images.unsplash.com/photo-1599858674708-d07d563b0dab?ixlib=rb-4.0.3&auto=format&fit=crop&w=1440&q=80') center/cover no-repeat;
+        }
+
+        #product2 {
+            background: url('https://images.unsplash.com/photo-1617897663738-1f7e8cc7a4a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1440&q=80') center/cover no-repeat;
+        }
+
+        .parallax-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .parallax-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .parallax-content h2 {
+            font-size: 2.8em;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            color: #fce4ec;
+        }
+
+        .parallax-content p {
+            font-size: 1.2em;
+            color: #81d4fa;
+        }
+
+        .chart-section {
+            padding: 80px 40px;
+            background: #fce4ec;
+            text-align: center;
+        }
+
+        .chart-section h2 {
+            font-size: 2.5em;
+            margin-bottom: 40px;
+            color: #ad1457;
+            text-transform: uppercase;
+        }
+
+        .chart-box {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        canvas {
+            max-width: 100%;
+        }
+
+        .testimonials {
+            padding: 80px 40px;
+            background: #fff;
+            text-align: center;
+        }
+
+        .testimonials h2 {
+            font-size: 2.5em;
+            margin-bottom: 40px;
+            color: #ad1457;
+            text-transform: uppercase;
+        }
+
+        .carousel {
+            display: flex;
+            overflow-x: auto;
+            gap: 20px;
+            padding-bottom: 20px;
+            scroll-behavior: smooth;
+        }
+
+        .carousel::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .carousel::-webkit-scrollbar-thumb {
+            background: #ad1457;
+            border-radius: 10px;
+        }
+
+        .testimonial-card {
+            flex: 0 0 300px;
+            background: #e1f5fe;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .testimonial-card p {
+            font-size: 1em;
+            color: #4a4a4a;
+            margin-bottom: 15px;
+        }
+
+        .testimonial-card .author {
+            font-weight: 600;
+            color: #ad1457;
+        }
+
+        .influencer {
+            color: #ad1457;
+            font-style: italic;
+        }
+
+        .ingredients {
+            padding: 80px 40px;
+            background: #e1f5fe;
+            text-align: center;
+        }
+
+        .ingredients h2 {
+            font-size: 2.5em;
+            margin-bottom: 40px;
+            color: #ad1457;
+            text-transform: uppercase;
+        }
+
+        .ingredient-item {
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+
+        .ingredient-item h3 {
+            font-size: 1.3em;
+            color: #ad1457;
+            margin-bottom: 10px;
+        }
+
+        .ingredient-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            font-size: 1em;
+            color: #4a4a4a;
+        }
+
+        .ingredient-details.active {
+            max-height: 200px;
+        }
+
+        .newsletter-section {
+            padding: 80px 40px;
+            background: #fce4ec;
+            text-align: center;
+        }
+
+        .newsletter-section h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #ad1457;
+            text-transform: uppercase;
+        }
+
+        .newsletter-section p {
+            font-size: 1.2em;
+            color: #4a4a4a;
+            margin-bottom: 20px;
+        }
+
+        .newsletter-form {
+            max-width: 500px;
+            margin: 0 auto;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .newsletter-form input[type="email"] {
+            padding: 12px;
+            font-size: 1em;
+            border: 1px solid #81d4fa;
+            border-radius: 5px;
+            width: 70%;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .newsletter-form input[type="email"]:focus {
+            border-color: #ad1457;
+        }
+
+        .newsletter-form input[type="email"].invalid {
+            border-color: #ff5252;
+        }
+
+        .newsletter-form button {
+            background: #ad1457;
+            color: #fce4ec;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1em;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        .newsletter-form button:hover {
+            background: #880e4f;
+            transform: translateY(-2px);
+        }
+
+        .newsletter-form .error-message {
+            color: #ff5252;
+            font-size: 0.9em;
+            margin-top: 5px;
+            display: none;
+            text-align: left;
+        }
+
+        .social-proof {
+            margin-top: 20px;
+            font-size: 1.1em;
+            color: #ad1457;
+            font-weight: 500;
+        }
+
+        .instagram-feed {
+            padding: 80px 40px;
+            background: #fff;
+            text-align: center;
+        }
+
+        .instagram-feed h2 {
+            font-size: 2.5em;
+            margin-bottom: 40px;
+            color: #ad1457;
+            text-transform: uppercase;
+        }
+
+        .instagram-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .instagram-post {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .instagram-post img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            aspect-ratio: 3/4;
+        }
+
+        .instagram-post:hover {
+            transform: scale(1.05);
+        }
+
+        .instagram-post .post-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(173, 20, 87, 0.5);
+            opacity: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.3s ease;
+        }
+
+        .instagram-post:hover .post-overlay {
+            opacity: 1;
+        }
+
+        .instagram-post .post-overlay span {
+            color: #fce4ec;
+            font-size: 1.2em;
+            font-weight: 600;
+        }
+
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1300;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 90%;
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .lightbox-content img {
+            max-width: 100%;
+            max-height: 80vh;
+            object-fit: contain;
+        }
+
+        .lightbox-caption {
+            padding: 15px;
+            text-align: center;
+            color: #ad1457;
+            font-size: 1.1em;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 1.5em;
+            color: #fce4ec;
+            background: #ad1457;
+            border-radius: 50%;
+            padding: 5px 10px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .lightbox-close:hover {
+            background: #880e4f;
+        }
+
+        .instagram-cta {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #ad1457;
+            font-weight: 600;
+        }
+
+        .instagram-cta a {
+            color: #f06292;
+            text-decoration: none;
+        }
+
+        .instagram-cta a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            background: #ad1457;
+            color: #fce4ec;
+            padding: 40px 20px;
+            text-align: left;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            padding-bottom: 20px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.2em;
+            color: #fce4ec;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a {
+            color: #e1f5fe;
+            text-decoration: none;
+            font-size: 1em;
+            transition: color 0.3s ease;
+        }
+
+        .footer-column ul li a:hover {
+            color: #81d4fa;
+        }
+
+        .footer-social li a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-social li a::before {
+            content: '';
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background-size: cover;
+        }
+
+        .footer-social li a[href*="instagram"]::before {
+            background-image: url('https://img.icons8.com/ios-filled/20/ffffff/instagram-new.png');
+        }
+
+        .footer-social li a[href*="youtube"]::before {
+            background-image: url('https://img.icons8.com/ios-filled/20/ffffff/youtube-play.png');
+        }
+
+        .footer-social li a[href*="tiktok"]::before {
+            background-image: url('https://img.icons8.com/ios-filled/20/ffffff/tiktok.png');
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .footer-bottom .logo {
+            display: inline-block;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .footer-bottom p {
+            font-size: 0.9em;
+        }
+
+        .footer-bottom .owners {
+            font-size: 0.9em;
+            margin-bottom: 10px;
+            color: #e1f5fe;
+        }
+
+        .footer-column h3 {
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-column h3::after {
+            content: '▾';
+            display: none;
+        }
+
+        .footer-column ul {
+            max-height: 200px;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .footer-column.collapsed ul {
+            max-height: 0;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                height: 100vh;
+                width: 250px;
+                background: #ffffff;
+                flex-direction: column;
+                padding: 80px 20px;
+                transition: right 0.4s ease;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links li {
+                margin: 15px 0;
+            }
+
+            .nav-links li a {
+                font-size: 1.3em;
+                padding: 15px;
+                color: #ad1457;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hero {
+                flex-direction: column;
+                height: auto;
+                min-height: 100vh;
+            }
+
+            .hero-image {
+                width: 100%;
+                height: 100%;
+                background-attachment: scroll;
+            }
+
+            .hero-content {
+                max-width: 100%;
+                padding: 20px;
+                text-align: center;
+                background: linear-gradient(180deg, rgba(173, 20, 87, 0.8), rgba(2, 136, 209, 0.5));
+            }
+
+            .hero-content h1 {
+                font-size: 2.8em;
+            }
+
+            .hero-content p {
+                font-size: 1.2em;
+            }
+
+            .cta-button {
+                margin: 10px auto;
+            }
+
+            .parallax-section {
+                height: 50vh;
+                background-attachment: scroll;
+            }
+
+            .parallax-content h2 {
+                font-size: 2.2em;
+            }
+
+            .carousel {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .testimonial-card {
+                flex: 0 0 100%;
+                max-width: 90%;
+            }
+
+            .chatbot-window {
+                width: 90%;
+                right: 5%;
+                height: 400px;
+            }
+
+            .ingredients-box {
+                grid-template-columns: 1fr;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .newsletter-form input[type="email"] {
+                width: 100%;
+            }
+
+            .newsletter-form .error-message {
+                text-align: center;
+            }
+
+            .instagram-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .lightbox-content {
+                max-width: 95%;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .footer-column h3::after {
+                display: inline;
+            }
+
+            .footer-column.collapsed ul {
+                max-height: 0;
+            }
+
+            .footer-column:not(.collapsed) ul {
+                max-height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav id="main-nav">
+        <div class="nav-container">
+            <div class="logo">GlowLuxe</div>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#quiz">Quiz</a></li>
+                <li><a href="#products">Products</a></li>
+                <li><a href="#benefits">Benefits</a></li>
+                <li><a href="#testimonials">Reviews</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero" id="home">
+        <div class="hero-image"></div>
+        <div class="hero-content">
+            <h1>Glow Naturally. Powered by Science.</h1>
+            <p>Personalized skincare routines designed for your skin type and concerns.</p>
+            <a href="#quiz" class="cta-button" id="quiz-cta">Take the Skin Quiz</a>
+            <a href="#products" class="cta-button secondary">Explore Products</a>
+        </div>
+    </section>
+
+    <div class="chatbot-container">
+        <div class="chatbot-button" id="chatbot-button">💬</div>
+        <div class="chatbot-window" id="chatbot-window">
+            <div class="chatbot-header">GlowLuxe Assistant</div>
+            <div class="chatbot-messages" id="chatbot-messages">
+                <div class="message bot">
+                    <div class="message-content">Hi! I'm your GlowLuxe Assistant. How can I help you today? Ask about skin types, products, or support!</div>
+                </div>
+            </div>
+            <div class="chatbot-input">
+                <input type="text" id="chatbot-input" placeholder="Type your message..." />
+                <button id="chatbot-send">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <section class="key-ingredients" id="benefits">
+        <h2>Our Power Ingredients</h2>
+        <div class="ingredients-box">
+            <div class="ingredient-card">
+                <h3>Hyaluronic Acid</h3>
+                <p>Plumps and hydrates for a dewy, unstoppable glow.</p>
+            </div>
+            <div class="ingredient-card">
+                <h3>Niacinamide</h3>
+                <p>Evens tone and shuts down redness like a boss.</p>
+            </div>
+            <div class="ingredient-card">
+                <h3>Green Tea Extract</h3>
+                <p>Calms and shields your skin from daily chaos.</p>
+            </div>
+            <div class="ingredient-card">
+                <h3>Vitamin C</h3>
+                <p>Brightens and fights dullness for radiant skin.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="parallax-section" id="products">
+        <div class="parallax-content">
+            <h2>Radiant Serum</h2>
+            <p>Unleash your glow with our high-potency, vegan formula.</p>
+            <a href="#quiz" class="cta-button">Shop Now</a>
+        </div>
+    </section>
+
+    <section class="parallax-section" id="product2">
+        <div class="parallax-content">
+            <h2>Boss Moisturizer</h2>
+            <p>Command hydration with our luxe, superfood-powered cream.</p>
+            <a href="#quiz" class="cta-button">Shop Now</a>
+        </div>
+    </section>
+
+    <section class="chart-section" id="chart">
+        <h2>What Our Users Say</h2>
+        <div class="chart-box">
+            <canvas id="userFeedbackChart"></canvas>
+        </div>
+    </section>
+
+    <section class="testimonials" id="testimonials">
+        <h2>Our Boss Babes Speak</h2>
+        <div class="carousel">
+            <div class="testimonial-card">
+                <p>"GlowLuxe is my vibe! Cleared my skin and boosted my confidence." – <span class="influencer">@BossBabeMaya</span></p>
+                <p class="author">Maya, 22</p>
+            </div>
+            <div class="testimonial-card">
+                <p>"This serum slays! My skin’s never been this hydrated." – <span class="influencer">@GlowQueenTina</span></p>
+                <p class="author">Tina, 19</p>
+            </div>
+            <div class="testimonial-card">
+                <p>"Obsessed with GlowLuxe’s clean, fierce formulas. Total game-changer!"</p>
+                <p class="author">Sarah, 25</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="ingredients" id="contact">
+        <h2>Contact Us</h2>
+        <div class="ingredient-item">
+            <h3>Email Support</h3>
+            <div class="ingredient-details">
+                <p>Reach out to us at support@glowluxe.com for personalized assistance.</p>
+            </div>
+        </div>
+        <div class="ingredient-item">
+            <h3>Social Media</h3>
+            <div class="ingredient-details">
+                <p>Follow us @GlowLuxeBeauty on Instagram and TikTok for updates and tips.</p>
+            </div>
+        </div>
+        <div class="ingredient-item">
+            <h3>Live Chat</h3>
+            <div class="ingredient-details">
+                <p>Use our chatbot below for instant answers to your skincare questions.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="instagram-feed" id="instagram">
+        <h2>Our Latest Glows</h2>
+        <div class="instagram-grid">
+            <div class="instagram-post" data-image="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" data-caption="Radiant Serum in action! ✨ #GlowLuxe">
+                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="GlowLuxe Post 1">
+                <div class="post-overlay"><span>View Post</span></div>
+            </div>
+            <div class="instagram-post" data-image="https://images.unsplash.com/photo-1512290923902-8a9f453c73c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" data-caption="Boss Moisturizer vibes! 💧 #SkincareRoutine">
+                <img src="https://images.unsplash.com/photo-1512290923902-8a9f453c73c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="GlowLuxe Post 2">
+                <div class="post-overlay"><span>View Post</span></div>
+            </div>
+            <div class="instagram-post" data-image="https://images.unsplash.com/photo-1616394584738-fc6e6126ed64?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" data-caption="Glowing with confidence! 🌟 #GlowLuxeBeauty">
+                <img src="https://images.unsplash.com/photo-1616394584738-fc6e6126ed64?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="GlowLuxe Post 3">
+                <div class="post-overlay"><span>View Post</span></div>
+            </div>
+            <div class="instagram-post" data-image="https://images.unsplash.com/photo-1620917709227-87e14f3b9d8f?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" data-caption="Skincare that slays! 💖 #BossBabe">
+                <img src="https://images.unsplash.com/photo-1620917709227-87e14f3b9d8f?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="GlowLuxe Post 4">
+                <div class="post-overlay"><span>View Post</span></div>
+            </div>
+            <div class="instagram-post" data-image="https://images.unsplash.com/photo-1599458448519-f79e4fd1f937?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" data-caption="Morning routine goals! ☀️ #GlowLuxe">
+                <img src="https://images.unsplash.com/photo-1599458448519-f79e4fd1f937?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="GlowLuxe Post 5">
+                <div class="post-overlay"><span>View Post</span></div>
+            </div>
+        </div>
+        <div class="instagram-cta">
+            Follow us <a href="https://www.instagram.com/glowluxebeauty" target="_blank">@GlowLuxe</a> for real skin stories
+        </div>
+    </section>
+
+    <section class="newsletter-section" id="newsletter">
+        <h2>Let's Glow Together</h2>
+        <p>Join our skincare community for exclusive early access, tips, and offers.</p>
+        <div class="newsletter-form">
+            <input type="email" id="newsletter-email" placeholder="Enter your email" required>
+            <button type="button" id="newsletter-submit">Join Now</button>
+            <div class="error-message" id="email-error">Please enter a valid email address.</div>
+        </div>
+        <div class="social-proof">Over 85,000+ subscribers and counting</div>
+    </section>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>Company</h3>
+                <ul>
+                    <li><a href="/about">About</a></li>
+                    <li><a href="/blog">Blog</a></li>
+                    <li><a href="/careers">Careers</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Support</h3>
+                <ul>
+                    <li><a href="/faqs">FAQs</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                    <li><a href="/return-policy">Return Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="/privacy-policy">Privacy Policy</a></li>
+                    <li><a href="/terms">Terms</a></li>
+                </ul>
+            </div>
+            <div class="footer-column footer-social">
+                <h3>Social</h3>
+                <ul>
+                    <li><a href="https://www.instagram.com/glowluxebeauty" target="_blank">Instagram</a></li>
+                    <li><a href="https://www.youtube.com/glowluxebeauty" target="_blank">YouTube</a></li>
+                    <li><a href="https://www.tiktok.com/@glowluxebeauty" target="_blank">TikTok</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="logo">GlowLuxe</div>
+            <p class="owners">Proudly owned by Pushpita & Priyanjana</p>
+            <p>© 2025 GlowLuxe. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-content">
+            <span class="lightbox-close">×</span>
+            <img src="" alt="Lightbox Image">
+            <div class="lightbox-caption"></div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const nav = document.getElementById('main-nav');
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('nav-links');
+        const ingredientItems = document.querySelectorAll('.ingredient-item');
+        const chatbotButton = document.getElementById('chatbot-button');
+        const chatbotWindow = document.getElementById('chatbot-window');
+        const chatbotInput = document.getElementById('chatbot-input');
+        const chatbotSend = document.getElementById('chatbot-send');
+        const chatbotMessages = document.getElementById('chatbot-messages');
+        const quizCta = document.getElementById('quiz-cta');
+        const newsletterEmail = document.getElementById('newsletter-email');
+        const newsletterSubmit = document.getElementById('newsletter-submit');
+        const emailError = document.getElementById('email-error');
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImage = lightbox.querySelector('img');
+        const lightboxCaption = lightbox.querySelector('.lightbox-caption');
+        const lightboxClose = document.querySelector('.lightbox-close');
+        const instagramPosts = document.querySelectorAll('.instagram-post');
+        const footerColumns = document.querySelectorAll('.footer-column');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        ingredientItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const details = item.querySelector('.ingredient-details');
+                details.classList.toggle('active');
+            });
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                if (this.id !== 'quiz-cta') {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        chatbotButton.addEventListener('click', () => {
+            chatbotWindow.classList.toggle('active');
+        });
+
+        quizCta.addEventListener('click', () => {
+            chatbotWindow.classList.add('active');
+            appendBotMessage('Let’s find your perfect skincare routine! What’s your skin type? (e.g., oily, dry, combination, sensitive)');
+        });
+
+        function appendBotMessage(text) {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message', 'bot');
+            const contentDiv = document.createElement('div');
+            contentDiv.classList.add('message-content');
+            contentDiv.textContent = text;
+            messageDiv.appendChild(contentDiv);
+            chatbotMessages.appendChild(messageDiv);
+            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+        }
+
+        function appendUserMessage(text) {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message', 'user');
+            const contentDiv = document.createElement('div');
+            contentDiv.classList.add('message-content');
+            contentDiv.textContent = text;
+            messageDiv.appendChild(contentDiv);
+            chatbotMessages.appendChild(messageDiv);
+            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+        }
+
+        function handleUserInput(input) {
+            const lowerInput = input.toLowerCase().trim();
+            let response = '';
+
+            if (lowerInput.includes('skin type') || lowerInput.includes('oily') || lowerInput.includes('dry') || lowerInput.includes('combination') || lowerInput.includes('sensitive')) {
+                if (lowerInput.includes('oily')) {
+                    response = 'For oily skin, try our Radiant Serum with Niacinamide to control shine and even tone. Want more details?';
+                } else if (lowerInput.includes('dry')) {
+                    response = 'Dry skin loves our Boss Moisturizer with Hyaluronic Acid for deep hydration. Need more tips?';
+                } else if (lowerInput.includes('combination')) {
+                    response = 'Combination skin? Our Radiant Serum balances oil and hydration. Interested in a full routine?';
+                } else if (lowerInput.includes('sensitive')) {
+                    response = 'Sensitive skin needs gentle care. Try our products with Green Tea Extract. Want specific recommendations?';
+                } else {
+                    response = 'I’d love to help! Please tell me your skin type (oily, dry, combination, or sensitive).';
+                }
+            } else if (lowerInput.includes('product') || lowerInput.includes('serum') || lowerInput.includes('moisturizer')) {
+                response = 'Our Radiant Serum brightens with Vitamin C, and Boss Moisturizer hydrates with Hyaluronic Acid. Which one interests you?';
+            } else if (lowerInput.includes('support') || lowerInput.includes('contact') || lowerInput.includes('help')) {
+                response = 'Need help? Email us at support@glowluxe.com or check our FAQs at /faqs. Anything specific I can assist with?';
+            } else if (lowerInput.includes('hi') || lowerInput.includes('hello')) {
+                response = 'Hey there! Ready to glow? Ask me about skincare tips, products, or support!';
+            } else {
+                response = 'Hmm, I’m not sure about that one. Try asking about skin types, products, or support, and I’ll help you out!';
+            }
+
+            setTimeout(() => appendBotMessage(response), 500);
+        }
+
+        chatbotSend.addEventListener('click', () => {
+            const input = chatbotInput.value.trim();
+            if (input) {
+                appendUserMessage(input);
+                handleUserInput(input);
+                chatbotInput.value = '';
+            }
+        });
+
+        chatbotInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && chatbotInput.value.trim()) {
+                appendUserMessage(chatbotInput.value);
+                handleUserInput(chatbotInput.value);
+                chatbotInput.value = '';
+            }
+        });
+
+        newsletterSubmit.addEventListener('click', () => {
+            const email = newsletterEmail.value.trim();
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (!emailRegex.test(email)) {
+                newsletterEmail.classList.add('invalid');
+                emailError.style.display = 'block';
+            } else {
+                newsletterEmail.classList.remove('invalid');
+                emailError.style.display = 'none';
+                alert('Thank you for joining our community! Check your email for a confirmation.');
+                newsletterEmail.value = '';
+            }
+        });
+
+        newsletterEmail.addEventListener('input', () => {
+            newsletterEmail.classList.remove('invalid');
+            emailError.style.display = 'none';
+        });
+
+        instagramPosts.forEach(post => {
+            post.addEventListener('click', () => {
+                const image = post.getAttribute('data-image');
+                const caption = post.getAttribute('data-caption');
+                lightboxImage.src = image;
+                lightboxCaption.textContent = caption;
+                lightbox.classList.add('active');
+            });
+        });
+
+        lightboxClose.addEventListener('click', () => {
+            lightbox.classList.remove('active');
+        });
+
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                lightbox.classList.remove('active');
+            }
+        });
+
+        footerColumns.forEach(column => {
+            const header = column.querySelector('h3');
+            header.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    column.classList.toggle('collapsed');
+                }
+            });
+        });
+
+        const ctx = document.getElementById('userFeedbackChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Hydration', 'Clarity', 'Glow', 'Confidence'],
+                datasets: [{
+                    label: 'User Satisfaction (%)',
+                    data: [95, 90, 92, 88],
+                    backgroundColor: '#ad1457',
+                    borderColor: '#880e4f',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        title: {
+                            display: true,
+                            text: 'Satisfaction (%)'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
